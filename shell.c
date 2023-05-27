@@ -15,23 +15,23 @@ int main(int argc, char **argv)
 	char **comms;
 	char *buf = NULL;
 	size_t n;
-	int stat = 1;
 
+	(void)argc;
 	while (1)
 	{
 		write(1, "#cisfun$ ", 10);
-		getline(&buf, &n, stdin);
-		comms = _tokenifier(buf);
-		stat = (isatty(fileno(stdin)));
-		if (stat == 1)
+		if (getline(&buf, &n, stdin) == -1 &&
+		getline(&buf, &n, stdin) == EOF)
 		{
-			_execute(argv[0], comms, stat, argc);
+			perror("\n\n\ndisconnected...");
+			return (-1);
 		} else
 		{
-			_execute(argv[0], argv, stat, argc);
+			comms = _tokenifier(buf);
+			_execute(argv[0], comms);
 		}
 	}
-	free(comms);
+	free(buf);
 	wait(NULL);
 	return (0);
 }

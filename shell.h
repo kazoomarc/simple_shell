@@ -7,6 +7,6 @@
 char *_strcpy(char *, const char *src);
 int _putchar(int c);
 char **_tokenifier(char *);
-void _execute(char *, char **, int, int);
-
+void _execute(char *, char **);
+extern char **environ;
 #endif /* end #ifndef SHELL_H */
